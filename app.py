@@ -20,6 +20,14 @@ def get_grade(marks):
 
 # VVV Database innhold her VVV
 
+def get_db():
+    conn = sqlite3.connect(DATABASE)
+    conn.row_factory = sqlite3.Row
+    return conn
+
+def init_db():
+    # Opprett tabell for studenter
+    return
 
 # AAA Database innhold her AAA
 
@@ -46,3 +54,26 @@ def get_grade(marks):
 
 # Endpoint 8: GET health check
 @app.route('/health', methods=['GET'])
+def health_check():
+    # Midlertidig for å ikke få feilmelding, skal implementeres senere
+    return 'OK', 200
+
+
+# Verdier for å fylle opp databasen
+def fyll_db():
+    students = [
+        ('Syver', 'DATA2410', 85),
+        ('Omran', 'DATA2410', 92),
+        ('Sjur', 'DATA2410', 90),
+        ('Vetle', 'DATA2410', 88),
+        ('Syver', 'DATA2410', 85),
+        ('Omran', 'DATA2410', 92),
+        ('Sjur', 'DATA2410', 90),
+        ('Vetle', 'DATA2410', 88),
+    ]
+    # Må legger verdier inn i databasen her
+
+if __name__ == '__main__':
+    init_db()
+    fyll_db()
+    app.run(debug=True)
