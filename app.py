@@ -51,10 +51,10 @@ def get_all_students():
     
 
 # Endpoint 2: GET student by ID
-@app.route('/api/students/{id}', methods=['GET'])
+@app.route('/api/students/<int:id>', methods=['GET'])
 def get_students(id):
     conn = get_db()
-    row = conn.execute('SELECCT * FROM Students WHERE id = ?', (id,)).fetchone()
+    row = conn.execute('SELECT * FROM Students WHERE id = ?', (id,)).fetchone()
     conn.close()
     if row is None:
         return jsonify({'error': 'Student ikke funnet'}), 404
@@ -87,7 +87,7 @@ def create_student():
     return jsonify(dict(new_student)), 201
 
 # Endpoint 4: PUT update student
-@app.route('/api/students/{id}', methods=['PUT'])
+@app.route('/api/students/<int:id>', methods=['PUT'])
 def update_student(id):
     conn = get_db()
     row = conn.execute('SELECT * FROM Students WHERE id = ?', (id,)).fetchone()
@@ -109,7 +109,7 @@ def update_student(id):
     return '', 204
 
 # Endpoint 5: DELETE student
-@app.route('/api/students/{id}', methods=['DELETE'])
+@app.route('/api/students/<int:id>', methods=['DELETE'])
 def delete_student(id):
     conn = get_db()
     row = conn.execute('SELECT * FROM Students WHERE id = ?', (id,)).fetchone()
